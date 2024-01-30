@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compaction Calculation</title>
+</head>
+<body>
+
+    <h1>Compaction Calculation</h1>
+
+    <form id="compactionForm">
+        <!-- User input fields -->
+        <label for="excavatedMassLower">Excavated Mass Lower:</label>
+        <input type="text" id="excavatedMassLower" name="excavatedMassLower" value="0.0">
+        <label for="excavatedMassUpper">Excavated Mass Upper:</label>
+        <input type="text" id="excavatedMassUpper" name="excavatedMassUpper" value="0.0">
+
+        <label for="bulkDensityLower">Bulk Density Lower:</label>
+        <input type="text" id="bulkDensityLower" name="bulkDensityLower" value="0.0">
+        <label for="bulkDensityUpper">Bulk Density Upper:</label>
+        <input type="text" id="bulkDensityUpper" name="bulkDensityUpper" value="0.0">
+
+        <label for="soilInContainerWeightLower">Soil in Container Weight Lower:</label>
+        <input type="text" id="soilInContainerWeightLower" name="soilInContainerWeightLower" value="0.0">
+        <label for="soilInContainerWeightUpper">Soil in Container Weight Upper:</label>
+        <input type="text" id="soilInContainerWeightUpper" name="soilInContainerWeightUpper" value="0.0">
+
+        <label for="driedSoilInContainerWeightLower">Dried Soil in Container Weight Lower:</label>
+        <input type="text" id="driedSoilInContainerWeightLower" name="driedSoilInContainerWeightLower" value="0.0">
+        <label for="driedSoilInContainerWeightUpper">Dried Soil in Container Weight Upper:</label>
+        <input type="text" id="driedSoilInContainerWeightUpper" name="driedSoilInContainerWeightUpper" value="0.0">
+
+        <label for="massOfMoistureLower">Mass of Moisture Lower:</label>
+        <input type="text" id="massOfMoistureLower" name="massOfMoistureLower" value="0.0">
+        <label for="massOfMoistureUpper">Mass of Moisture Upper:</label>
+        <input type="text" id="massOfMoistureUpper" name="massOfMoistureUpper" value="0.0">
+
+        <label for="massOfContainerLower">Mass of Container Lower:</label>
+        <input type="text" id="massOfContainerLower" name="massOfContainerLower" value="0.0">
+        <label for="massOfContainerUpper">Mass of Container Upper:</label>
+        <input type="text" id="massOfContainerUpper" name="massOfContainerUpper" value="0.0">
+
+        <label for="moistureContentLower">Moisture Content Lower:</label>
+        <input type="text" id="moistureContentLower" name="moistureContentLower" value="0.0">
+        <label for="moistureContentUpper">Moisture Content Upper:</label>
+        <input type="text" id="moistureContentUpper" name="moistureContentUpper" value="0.0">
+
+        <label for="massSandCylinderAfterPouringRangeLower">Mass Sand Cylinder After Pouring Lower:</label>
+        <input type="text" id="massSandCylinderAfterPouringRangeLower" name="massSandCylinderAfterPouringRangeLower" value="0.0">
+        <label for="massSandCylinderAfterPouringRangeUpper">Mass Sand Cylinder After Pouring Upper:</label>
+        <input type="text" id="massSandCylinderAfterPouringRangeUpper" name="massSandCylinderAfterPouringRangeUpper" value="0.0">
+
+        <label for="massSandHoleLower">Mass Sand Hole Lower:</label>
+        <input type="text" id="massSandHoleLower" name="massSandHoleLower" value="0.0">
+        <label for="massSandHoleUpper">Mass Sand Hole Upper:</label>
+        <input type="text" id="massSandHoleUpper" name="massSandHoleUpper" value="0.0">
+
+        <button type="button" onclick="calculateCompaction()">Calculate</button>
+    </form>
+
+    <div id="resultContainer">
+        <!-- Display the results here -->
+    </div>
+
+    <script>
+        function calculateCompaction() {
+            // Retrieve user inputs
+            let sandDensity = 1.30
+            let beforePouring = 3000
+            let massOfSand = 496.8
+            let maximumDensity = 1.95
+
+            var excavatedMassLower = parseFloat(document.getElementById('excavatedMassLower').value) || 0.0;
+            var excavatedMassUpper = parseFloat(document.getElementById('excavatedMassUpper').value) || 0.0;
+            var bulkDensityLower = parseFloat(document.getElementById('bulkDensityLower').value) || 0.0;
+            var bulkDensityUpper = parseFloat(document.getElementById('bulkDensityUpper').value) || 0.0;
+            var soilInContainerWeightLower = parseFloat(document.getElementById('soilInContainerWeightLower').value) || 0.0;
+            var soilInContainerWeightUpper = parseFloat(document.getElementById('soilInContainerWeightUpper').value) || 0.0;
+            var driedSoilInContainerWeightLower = parseFloat(document.getElementById('driedSoilInContainerWeightLower').value) || 0.0;
+            var driedSoilInContainerWeightUpper = parseFloat(document.getElementById('driedSoilInContainerWeightUpper').value) || 0.0;
+            var massOfMoistureLower = parseFloat(document.getElementById('massOfMoistureLower').value) || 0.0;
+            var massOfMoistureUpper = parseFloat(document.getElementById('massOfMoistureUpper').value) || 0.0;
+            var massOfContainerLower = parseFloat(document.getElementById('massOfContainerLower').value) || 0.0;
+            var massOfContainerUpper = parseFloat(document.getElementById('massOfContainerUpper').value) || 0.0;
+            var moistureContentLower = parseFloat(document.getElementById('moistureContentLower').value) || 0.0;
+            var moistureContentUpper = parseFloat(document.getElementById('moistureContentUpper').value) || 0.0;
+            var massSandCylinderAfterPouringRangeLower = parseFloat(document.getElementById('massSandCylinderAfterPouringRangeLower').value) || 0.0;
+            var massSandCylinderAfterPouringRangeUpper = parseFloat(document.getElementById('massSandCylinderAfterPouringRangeUpper').value) || 0.0;
+            var massSandHoleLower = parseFloat(document.getElementById('massSandHoleLower').value) || 0.0;
+            var massSandHoleUpper = parseFloat(document.getElementById('massSandHoleUpper').value) || 0.0;
+
+            // Calculate values
+            var mass_excavated_soil = Math.floor(Math.random() * (excavatedMassUpper - excavatedMassLower + 1) + excavatedMassLower);
+            var mass_sand_cylinder_after_pouring = Math.random() * (massSandCylinderAfterPouringRangeUpper - massSandCylinderAfterPouringRangeLower) + massSandCylinderAfterPouringRangeLower;
+            var mass_sand_hole = Math.random() * (massSandHoleUpper - massSandHoleLower) + massSandHoleLower;
+            var bulk_density = Math.round(Math.random() * (bulkDensityUpper - bulkDensityLower) + bulkDensityLower, 2);
+            var mass_soil_hole = mass_excavated_soil - (beforePouring - mass_sand_cylinder_after_pouring) - massOfSand - mass_sand_hole;
+            var bulk_density_soil = mass_soil_hole / 1000 / (mass_sand_hole / 1000);
+
+            // Display the results
+            var resultHtml = `
+                <p>Mass of Excavated Soil: ${mass_excavated_soil}</p>
+                <p>Mass of Sand Cylinder After Pouring: ${mass_sand_cylinder_after_pouring}</p>
+                <p>Mass of Sand Hole: ${mass_sand_hole}</p>
+                <p>Bulk Density: ${bulk_density}</p>
+                <p>Mass of Soil Hole: ${mass_soil_hole}</p>
+                <p>Bulk Density of Soil: ${bulk_density_soil}</p>
+            `;
+            document.getElementById('resultContainer').innerHTML = resultHtml;
+        }
+    </script>
+
+</body>
+</html>
